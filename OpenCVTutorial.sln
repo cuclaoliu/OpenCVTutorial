@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "helloOpenCV", "helloOpenCV\
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "image_roi", "image_roi\image_roi.vcxproj", "{140D1DE1-32D4-4046-94D9-517347D4B04E}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "FaceDetect", "FaceDetect\FaceDetect.vcxproj", "{18A1E3D6-5872-4C0E-ACBD-B1C48F5E2F40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -31,6 +33,14 @@ Global
 		{140D1DE1-32D4-4046-94D9-517347D4B04E}.Release|x64.Build.0 = Release|x64
 		{140D1DE1-32D4-4046-94D9-517347D4B04E}.Release|x86.ActiveCfg = Release|Win32
 		{140D1DE1-32D4-4046-94D9-517347D4B04E}.Release|x86.Build.0 = Release|Win32
+		{18A1E3D6-5872-4C0E-ACBD-B1C48F5E2F40}.Debug|x64.ActiveCfg = Debug|x64
+		{18A1E3D6-5872-4C0E-ACBD-B1C48F5E2F40}.Debug|x64.Build.0 = Debug|x64
+		{18A1E3D6-5872-4C0E-ACBD-B1C48F5E2F40}.Debug|x86.ActiveCfg = Debug|Win32
+		{18A1E3D6-5872-4C0E-ACBD-B1C48F5E2F40}.Debug|x86.Build.0 = Debug|Win32
+		{18A1E3D6-5872-4C0E-ACBD-B1C48F5E2F40}.Release|x64.ActiveCfg = Release|x64
+		{18A1E3D6-5872-4C0E-ACBD-B1C48F5E2F40}.Release|x64.Build.0 = Release|x64
+		{18A1E3D6-5872-4C0E-ACBD-B1C48F5E2F40}.Release|x86.ActiveCfg = Release|Win32
+		{18A1E3D6-5872-4C0E-ACBD-B1C48F5E2F40}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
