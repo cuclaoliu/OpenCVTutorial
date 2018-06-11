@@ -6,17 +6,13 @@
 using namespace cv;
 using namespace std;
 
+#define CAMERA
 void detectAndDraw(Mat& img, CascadeClassifier& cascade,
 	CascadeClassifier& nestedCascade,
 	double scale, bool tryflip);
 
 int main(int argc, char* argv[])
 {
-	//VideoCapture cap(0);    //打开默认摄像头
-	//if(!cap.isOpened())
-	//{
-	//    return -1;
-	//}
 	for (int i = 0; i < argc; i++)
 		cout << i<<". "<<argv[i] << endl;
 	if (2 != argc) {
@@ -24,8 +20,6 @@ int main(int argc, char* argv[])
 		system("pause");
 		return -1;
 	}
-	Mat frame;
-	Mat edges;
 
 	CascadeClassifier cascade, nestedCascade;
 	bool stop = false;
@@ -34,6 +28,9 @@ int main(int argc, char* argv[])
 	cout << "path: " << path << endl;
 	cascade.load(path + "/haarcascade_frontalface_alt.xml");
 	nestedCascade.load(path + "/haarcascade_eye.xml");
+	Mat frame;
+	//Mat edges;
+#ifndef CAMERA
 	String imFile = path+"/g7.jpg";
 	frame = imread(imFile);
 	if (frame.empty()) {
@@ -43,13 +40,20 @@ int main(int argc, char* argv[])
 	}
 	detectAndDraw(frame, cascade, nestedCascade, 1, 0);
 	waitKey();
-	//while(!stop)
-	//{
-	//    cap>>frame;
-	//    detectAndDraw( frame, cascade, nestedCascade,2,0 );
-	//    if(waitKey(30) >=0)
-	//        stop = true;
-	//}
+#else
+	VideoCapture cap(0);    //打开默认摄像头
+	if (!cap.isOpened())
+	{
+		return -1;
+	}
+	while(!stop)
+	{
+	    cap>>frame;
+	    detectAndDraw( frame, cascade, nestedCascade, 4, true);
+	    if(waitKey(30) >=0)
+	        stop = true;
+	}
+#endif
 	return 0;
 }
 void detectAndDraw(Mat& img, CascadeClassifier& cascade,
