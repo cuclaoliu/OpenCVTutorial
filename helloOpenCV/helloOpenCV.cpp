@@ -4,15 +4,22 @@
 #include <iostream>
 using namespace cv;
 using namespace std;
+#define IMFILE "../../lena.png"
 int main(int argc, char** argv)
 {
+	String file;
+#ifdef IMFILE
+	file = IMFILE;
+#else
 	if (argc != 2)
 	{
 		cout << " Usage: display_image ImageToLoadAndDisplay" << endl;
 		return -1;
 	}
+	file = argv[1];
+#endif
 	Mat image;
-	image = imread(argv[1], IMREAD_COLOR); // Read the file
+	image = imread(file, IMREAD_COLOR); // Read the file
 	if (image.empty()) // Check for invalid input
 	{
 		cout << "Could not open or find the image" << std::endl;
