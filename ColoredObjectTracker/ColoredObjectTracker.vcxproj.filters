@@ -15,19 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="facedetect.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="main.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="overlayFacemask.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="overlayMoustache.cpp">
-      <Filter>源文件</Filter>
-    </ClCompile>
-    <ClCompile Include="overlaySunglasses.cpp">
+    <ClCompile Include="coloredObjectTracker.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>

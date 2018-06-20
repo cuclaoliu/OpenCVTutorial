@@ -4,57 +4,21 @@
 #include <opencv2/objdetect/objdetect.hpp>
 #include <iostream>
 using namespace cv;
-using namespace std;
 
-#define CAMERA
 void detectAndDraw(Mat& img, CascadeClassifier& cascade,
 	CascadeClassifier& nestedCascade,
 	double scale, bool tryflip);
 
-int main(int argc, char* argv[])
+void FaceDetect(Mat& img, String path)
 {
-	for (int i = 0; i < argc; i++)
-		cout << i<<". "<<argv[i] << endl;
-	if (2 != argc) {
-		cout<<"Parameter error!"<<endl;
-		system("pause");
-		return -1;
-	}
-
 	CascadeClassifier cascade, nestedCascade;
 	bool stop = false;
-	//训练好的文件名称，放置在可执行文件同目录下
-	String path = argv[1];
-	cout << "path: " << path << endl;
-	cascade.load(path + "/haarcascade_frontalface_alt.xml");
-	nestedCascade.load(path + "/haarcascade_eye.xml");
-	Mat frame;
+	//训练好的文件名称
+	cascade.load(path + "/cascadeFiles/haarcascade_frontalface_alt.xml");
+	nestedCascade.load(path + "/cascadeFiles/haarcascade_eye.xml");
 	//Mat edges;
-#ifndef CAMERA
-	String imFile = path+"/g7.jpg";
-	frame = imread(imFile);
-	if (frame.empty()) {
-		cout << "No photo: " << imFile << endl;
-		system("pause");
-		return -1;
-	}
-	detectAndDraw(frame, cascade, nestedCascade, 1, 0);
-	waitKey();
-#else
-	VideoCapture cap(0);    //打开默认摄像头
-	if (!cap.isOpened())
-	{
-		return -1;
-	}
-	while(!stop)
-	{
-	    cap>>frame;
-	    detectAndDraw( frame, cascade, nestedCascade, 4, true);
-	    if(waitKey(30) >=0)
-	        stop = true;
-	}
-#endif
-	return 0;
+    detectAndDraw(img, cascade, nestedCascade, 2, true);
+	return;
 }
 void detectAndDraw(Mat& img, CascadeClassifier& cascade,
 	CascadeClassifier& nestedCascade,
@@ -63,7 +27,7 @@ void detectAndDraw(Mat& img, CascadeClassifier& cascade,
 	int i = 0;
 	double t = 0;
 	//建立用于存放人脸的向量容器
-	vector<Rect> faces, faces2;
+	std::vector<Rect> faces, faces2;
 	//定义一些颜色，用来标示不同的人脸
 	const static Scalar colors[] = {
 		CV_RGB(0,0,255),
@@ -110,17 +74,17 @@ void detectAndDraw(Mat& img, CascadeClassifier& cascade,
 			//|CV_HAAR_DO_ROUGH_SEARCH
 			| CV_HAAR_SCALE_IMAGE
 			, Size(30, 30));
-		for (vector<Rect>::const_iterator r = faces2.begin(); r != faces2.end(); r++)
+		for (std::vector<Rect>::const_iterator r = faces2.begin(); r != faces2.end(); r++)
 		{
 			faces.push_back(Rect(smallImg.cols - r->x - r->width, r->y, r->width, r->height));
 		}
 	}
 	t = (double)cvGetTickCount() - t;
 	//   qDebug( "detection time = %g ms\n", t/((double)cvGetTickFrequency()*1000.) );
-	for (vector<Rect>::const_iterator r = faces.begin(); r != faces.end(); r++, i++)
+	for (std::vector<Rect>::const_iterator r = faces.begin(); r != faces.end(); r++, i++)
 	{
 		Mat smallImgROI;
-		vector<Rect> nestedObjects;
+		std::vector<Rect> nestedObjects;
 		Point center;
 		Scalar color = colors[i % 8];
 		int radius;
@@ -149,7 +113,7 @@ void detectAndDraw(Mat& img, CascadeClassifier& cascade,
 			//|CV_HAAR_DO_CANNY_PRUNING
 			| CV_HAAR_SCALE_IMAGE
 			, Size(30, 30));
-		for (vector<Rect>::const_iterator nr = nestedObjects.begin(); nr != nestedObjects.end(); nr++)
+		for (std::vector<Rect>::const_iterator nr = nestedObjects.begin(); nr != nestedObjects.end(); nr++)
 		{
 			center.x = cvRound((r->x + nr->x + nr->width*0.5)*scale);
 			center.y = cvRound((r->y + nr->y + nr->height*0.5)*scale);
@@ -157,5 +121,4 @@ void detectAndDraw(Mat& img, CascadeClassifier& cascade,
 			circle(img, center, radius, color, 3, 8, 0);
 		}
 	}
-	imshow("识别结果", img);
 }

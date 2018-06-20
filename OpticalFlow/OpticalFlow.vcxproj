@@ -19,9 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{18A1E3D6-5872-4C0E-ACBD-B1C48F5E2F40}</ProjectGuid>
+    <ProjectGuid>{16B0FD79-975C-487A-A259-F35D47139489}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
-    <RootNamespace>FaceDetect</RootNamespace>
+    <RootNamespace>OpticalFlow</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -59,23 +59,23 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\includes.props" />
-    <Import Project="..\libdir.props" />
+    <Import Project="..\includes_libdir.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\includes.props" />
-    <Import Project="..\libdir.props" />
+    <Import Project="..\includes_libdir.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\includes.props" />
-    <Import Project="..\libdir.props" />
+    <Import Project="..\includes_libdir.props" />
     <Import Project="..\debug_depend.props" />
   </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
     <Import Project="..\includes.props" />
-    <Import Project="..\libdir.props" />
+    <Import Project="..\includes_libdir.props" />
     <Import Project="..\release_depend.props" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
@@ -156,11 +156,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="facedetect.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="overlayFacemask.cpp" />
-    <ClCompile Include="overlayMoustache.cpp" />
-    <ClCompile Include="overlaySunglasses.cpp" />
+    <ClCompile Include="opticalflow.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
