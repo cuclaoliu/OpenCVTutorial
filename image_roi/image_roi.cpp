@@ -1,6 +1,6 @@
 // 说明：图像的载入，显示，混合与输出
 // VSC2015   OpenCV版本：3.41
-
+#include <opencv2/imgproc/imgproc.hpp>
 #include<opencv2/core/core.hpp>
 #include<opencv2/highgui/highgui.hpp>
 using namespace cv;
@@ -28,11 +28,33 @@ int main(int argc, char** argv) {
 	//方法二
 	//imageROI=image(Range(350,350+logo.rows),Range(800,800+logo.cols));
 
-	//将logo加到原图上，矩阵相加
-	//dst = src1*alpha + src2*beta + gamma;
-	//			src1,   alpha, src2, beta, gamma, dst
-	addWeighted(imageROI, 0.5, logo, 0.3, 0., imageROI);
+	Mat grayLogo, grayLogoThresh, grayLogoThreshInv;
+	Mat maskedLogo, maskedFrame;
+	// Extract region of interest (ROI) covering your face
 
+	// Resize the face mask image based on the dimensions of the above ROI
+	//resize(faceMask, faceMaskSmall, Size(w, h));
+
+	// Convert the above image to grayscale
+	cvtColor(logo, grayLogo, CV_BGR2GRAY);
+
+	// Threshold the above image to isolate the pixels associated only with the face mask
+	threshold(grayLogo, grayLogoThresh, 0, 30, CV_THRESH_BINARY_INV);
+
+	// Create mask by inverting the above image (because we don't want the background to affect the overlay)
+	bitwise_not(grayLogoThresh, grayLogoThreshInv);
+
+	// Use bitwise "AND" operator to extract precise boundary of face mask
+	bitwise_and(logo, logo, maskedLogo, grayLogoThreshInv);
+
+	// Use bitwise "AND" operator to overlay face mask
+	bitwise_and(imageROI, imageROI, maskedFrame, grayLogoThresh);
+
+	imshow("MaskedLogo", maskedLogo);
+	imshow("MaskedFrame", maskedFrame);
+
+	// Add the above masked images and place it in the original frame ROI to create the final image
+	add(maskedLogo, maskedFrame, image(Rect(image.cols - logo.cols, image.rows - logo.rows, logo.cols, logo.rows)));
 	//显示结果
 	char* winName3 = "3. 原画+logo图";
 	namedWindow(winName3);
